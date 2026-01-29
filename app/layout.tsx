@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Source_Serif_4, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import NavBar from "@/components/NavBar";
+import { Toaster } from "sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const interSans = Inter({
   subsets: ["latin"],
+  variable: "--font-inter-sans",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
+  variable: "--font-source-serif-4",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
@@ -23,11 +30,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${interSans.variable} ${sourceSerif.variable} ${jetbrainsMono.variable} antialiased`}
+        suppressHydrationWarning
       >
-        {children}
+        <main className="relative">
+          <NavBar />
+          {children}
+          <Toaster />
+        </main>
       </body>
     </html>
   );
