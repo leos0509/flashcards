@@ -3,6 +3,7 @@ import { Source_Serif_4, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import { Toaster } from "sonner";
+import Providers from "./provider";
 
 const interSans = Inter({
   subsets: ["latin"],
@@ -35,11 +36,13 @@ export default function RootLayout({
         className={`${interSans.variable} ${sourceSerif.variable} ${jetbrainsMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <main className="relative">
-          <NavBar />
-          {children}
-          <Toaster />
-        </main>
+        <Providers>
+          <main className="relative">
+            <NavBar />
+            {children}
+            <Toaster />
+          </main>
+        </Providers>
       </body>
     </html>
   );

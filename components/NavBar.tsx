@@ -1,7 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import nameShorten from "@/lib/nameShorten";
+import nameShorten from "@/lib/name-shorten";
 import {
   ChevronDownIcon,
   HouseIcon,

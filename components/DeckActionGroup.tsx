@@ -1,10 +1,13 @@
-"use client"
+"use client";
 
+import { useCreateQuickDeck } from "@/hooks/useCreateDeck";
 import { Button } from "./ui/button";
 
 const DeckActionGroup = () => {
+  const { mutate } = useCreateQuickDeck();
+
   const handleCreateNewDeck = () => {
-    // Logic to handle creating a new deck
+    mutate();
   };
 
   return (
