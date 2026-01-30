@@ -10,12 +10,17 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 
-export default async function DecksPage() {
+export default async function DecksPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sort: string; search: string }>;
+}) {
+  const { sort, search } = await searchParams;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: ["decks"],
-    queryFn: fetchDecks,
+    queryFn: () => fetchDecks({ sort, search }),
   });
 
   return (

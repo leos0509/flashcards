@@ -13,8 +13,10 @@ import {
   SelectValue,
 } from "./ui/select";
 import { parseAsString, useQueryState } from "nuqs";
+import { useQueryClient } from "@tanstack/react-query";
 
 const DeckFilter = () => {
+  const queryClient = useQueryClient();
   const [sort, setSort] = useQueryState(
     "sort",
     parseAsString.withDefault("newest"),
@@ -34,7 +36,13 @@ const DeckFilter = () => {
           >
             Sort by
           </FieldLabel>
-          <Select defaultValue={sort} onValueChange={setSort}>
+          <Select
+            defaultValue={sort}
+            onValueChange={(value) => {
+              setSort(value);
+              queryClient.invalidateQueries({ queryKey: ["decks"] });
+            }}
+          >
             <SelectTrigger
               size="sm"
               className="h-8 min-w-40"
@@ -66,7 +74,7 @@ const DeckFilter = () => {
             id="deck-filter-search"
             type="text"
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value.trim())}
             className="h-8"
             placeholder="Search ..."
           />

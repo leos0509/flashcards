@@ -62,9 +62,17 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET() {
+const searchParamsSchema = z.object({
+  sort: z.string().optional(),
+  search: z.string().optional(),
+});
+
+export async function GET(req: NextRequest) {
   try {
-    // const {} = await params;
+    const queryParams = Object.fromEntries(req.nextUrl.searchParams);
+
+    console.log("Query Params:", queryParams);
+
     const session = await auth.api.getSession({
       headers: await headers(),
     });

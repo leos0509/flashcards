@@ -1,11 +1,11 @@
-import { fetchDecks } from "@/apis/deckApi";
+import { fetchDecks, FetchDeckParams } from "@/apis/deckApi";
 import { useQuery } from "@tanstack/react-query";
 
-export function useGetDecks() {
+export function useGetDecks(params?: FetchDeckParams) {
   return useQuery({
-    queryKey: ["decks"],
+    queryKey: ["decks", params],
     queryFn: async () => {
-      const res = await fetchDecks();
+      const res = await fetchDecks(params);
       return res.data;
     },
   });

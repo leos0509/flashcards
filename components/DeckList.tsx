@@ -3,6 +3,7 @@
 import { Deck } from "@/generated/prisma/client";
 import { useGetDecks } from "@/hooks/useGetDecks";
 import { ImageIcon } from "lucide-react";
+import { parseAsString, useQueryState } from "nuqs";
 import { toast } from "sonner";
 
 const DeckCard = ({ deck }: { deck: Deck }) => {
@@ -20,7 +21,10 @@ const DeckCard = ({ deck }: { deck: Deck }) => {
 };
 
 const DeckList = () => {
-  const { data, isLoading, isError } = useGetDecks();
+  const [sort] = useQueryState("sort", parseAsString.withDefault("newest"));
+  const [search] = useQueryState("search", parseAsString.withDefault(""));
+
+  const { data, isLoading, isError } = useGetDecks({ sort, search });
 
   if (isLoading) {
     return <div className="flex flex-col gap-2 p-4">Loading decks...</div>;

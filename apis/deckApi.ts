@@ -14,7 +14,16 @@ export async function createDeck(
   return res;
 }
 
-export async function fetchDecks(): Promise<AxiosResponse<Deck[]>> {
-  const res = await axios.get("/decks");
+export type FetchDeckParams = {
+  sort?: string;
+  search?: string;
+};
+
+export async function fetchDecks(
+  params?: FetchDeckParams,
+): Promise<AxiosResponse<Deck[]>> {
+  const res = await axios.get("/decks", {
+    params,
+  });
   return res;
 }
